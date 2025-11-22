@@ -2,10 +2,13 @@ import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import documentParserService from '../services/document-parser.service';
 import watsonxService from '../services/watsonx-orchestrate.service';
+import kpiController from './kpi.controller';
 import { logger } from '../utils/logger';
 
 class UploadController {
   async handleFileUpload(req: Request, res: Response): Promise<void> {
+    const startTime = Date.now();
+    
     try {
       const { fileType, vendorName, vendorId } = req.body;
 
@@ -41,7 +44,20 @@ class UploadController {
         s3Path: `s3://bucket/${fileType}s/${fileId}-${fileName}`
       });
 
-      logger.info(`File uploaded: ${fileName} (ID: ${fileId})`);
+      // Calculate processing time
+      const processingTime = (Date.now() - startTime) / 1000;
+
+      // Update KPI metrics (no cost savings at upload stage)
+      (kpiController.constructor as any).updateMetrics({
+        processingTime,
+        autoApproved: true, // File successfully processed and auto-approved
+        escalated: false,
+        costSavings: 0, // Cost savings calculated from comparison, not upload
+        error: false,
+        isComparison: false
+      });
+
+      logger.info(`File uploaded: ${fileName} (ID: ${fileId}) - ${processingTime.toFixed(2)}s`);
 
       res.json({
         success: true,
