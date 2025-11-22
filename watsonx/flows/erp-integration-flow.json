@@ -1,0 +1,76 @@
+{
+  "spec": {
+    "spec_version": "v1",
+    "name": "erp_integration_flow",
+    "title": "ERP Integration Flow",
+    "description": "Creates Purchase Order in ERP system (SAP, Oracle, or Mock) with complete PO data. Sends confirmation notifications via Slack and Email to relevant stakeholders. Maintains comprehensive audit trail of PO creation and approvals.",
+    "version": "1.0.0",
+    "function": {
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "approval": {
+            "type": "object",
+            "description": "Approval decision and metadata",
+            "properties": {
+              "comparisonId": {"type": "string"},
+              "routingId": {"type": "string"},
+              "approvedVendorId": {"type": "string"},
+              "approvedVendorName": {"type": "string"},
+              "approvedBy": {"type": "string", "description": "Email of approver"},
+              "approvalLevel": {"type": "string"},
+              "timestamp": {"type": "string", "format": "date-time"}
+            },
+            "required": ["approvedVendorId", "approvedBy"]
+          },
+          "comparison": {
+            "type": "object",
+            "description": "Vendor comparison result",
+            "properties": {
+              "bestVendor": {"type": "string"},
+              "costSavings": {"type": "number"},
+              "vendors": {"type": "array"}
+            }
+          },
+          "erp": {
+            "type": "object",
+            "description": "ERP system configuration",
+            "properties": {
+              "system": {"type": "string", "enum": ["sap", "oracle", "mock"]},
+              "baseUrl": {"type": "string"},
+              "apiKey": {"type": "string"},
+              "companyCode": {"type": "string"},
+              "purchasingOrgCode": {"type": "string"}
+            },
+            "required": ["system", "baseUrl", "apiKey"]
+          },
+          "notifications": {
+            "type": "object",
+            "description": "Notification configuration",
+            "properties": {
+              "slackChannel": {"type": "string"},
+              "emailRecipients": {"type": "array"},
+              "includeAttachment": {"type": "boolean"}
+            }
+          }
+        },
+        "required": ["approval", "erp"]
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "poCreationId": {"type": "string"},
+          "poNumber": {"type": "string"},
+          "status": {"type": "string", "enum": ["CREATED", "PENDING", "FAILED"]},
+          "vendorId": {"type": "string"},
+          "vendorName": {"type": "string"},
+          "poAmount": {"type": "number"},
+          "createdTime": {"type": "string", "format": "date-time"},
+          "erpReference": {"type": "string"},
+          "notificationStatus": {"type": "object"},
+          "errors": {"type": "array"}
+        }
+      }
+    }
+  }
+}

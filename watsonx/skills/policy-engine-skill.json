@@ -1,0 +1,55 @@
+{
+  "skill": {
+    "id": "policy-engine-skill",
+    "name": "Policy Engine",
+    "version": "1.0.0",
+    "description": "Evaluates business rules and policies for procurement decisions",
+    "type": "rule_based",
+    "rules": [
+      {
+        "id": "three-quote-rule",
+        "name": "Three Quote Rule",
+        "trigger": "totalCost > 10000",
+        "condition": "quoteCount >= 3",
+        "action": "VALIDATE_AND_PROCEED",
+        "failureAction": "ESCALATE_TO_MANAGER"
+      },
+      {
+        "id": "preferred-vendor-bonus",
+        "name": "Preferred Vendor Bonus",
+        "trigger": "vendor in preferredVendorList",
+        "condition": "costVariance <= 10",
+        "action": "ADD_BONUS_POINTS",
+        "bonusPoints": 10
+      },
+      {
+        "id": "spec-compliance-check",
+        "name": "Specification Compliance",
+        "trigger": "always",
+        "condition": "allItemsMatchSpec == true",
+        "action": "APPROVE",
+        "failureAction": "FLAG_FOR_REVIEW"
+      },
+      {
+        "id": "cost-variance-warning",
+        "name": "Cost Variance Warning",
+        "trigger": "abs(costVariance) > 30",
+        "condition": "true",
+        "action": "FLAG_OUTLIER",
+        "severity": "warning"
+      }
+    ],
+    "thresholds": {
+      "procurement_manager": 50000,
+      "finance": 500000,
+      "executive": 999999999
+    },
+    "capabilities": [
+      "evaluate_rules",
+      "check_thresholds",
+      "validate_compliance",
+      "route_approvals",
+      "flag_violations"
+    ]
+  }
+}

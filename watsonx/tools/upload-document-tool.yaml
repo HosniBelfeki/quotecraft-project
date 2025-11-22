@@ -1,0 +1,62 @@
+spec_version: v1
+name: upload_document
+display_name: Upload Document
+description: Upload and parse BOQ or vendor quote documents. Accepts JSON, PDF, or Excel files and extracts structured data.
+type: openapi
+openapi_spec: |
+  openapi: 3.0.0
+  info:
+    title: Upload Document API
+    version: 1.0.0
+  servers:
+    - url: http://localhost:3001
+  paths:
+    /api/upload:
+      post:
+        summary: Upload BOQ or vendor quote document
+        operationId: uploadDocument
+        requestBody:
+          required: true
+          content:
+            multipart/form-data:
+              schema:
+                type: object
+                required:
+                  - file
+                  - fileType
+                properties:
+                  file:
+                    type: string
+                    format: binary
+                    description: The document file to upload
+                  fileType:
+                    type: string
+                    enum: [boq, quote]
+                    description: Type of document (boq or quote)
+                  vendorName:
+                    type: string
+                    description: Vendor name (required for quotes)
+                  vendorId:
+                    type: string
+                    description: Vendor ID (optional)
+        responses:
+          '200':
+            description: File uploaded and parsed successfully
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    data:
+                      type: object
+                      properties:
+                        fileId:
+                          type: string
+                        fileName:
+                          type: string
+                        fileType:
+                          type: string
+                        parsedData:
+                          type: object

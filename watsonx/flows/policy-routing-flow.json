@@ -1,0 +1,51 @@
+{
+  "spec": {
+    "spec_version": "v1",
+    "name": "policy_routing_flow",
+    "title": "Policy-Based Routing Flow",
+    "description": "Applies business rules and compliance checks to determine approval routing path. Auto-approves orders <$50K, escalates $50K-$500K to Finance, and routes >$500K to Executive approval. Checks preferred vendor status and policy violations.",
+    "version": "1.0.0",
+    "function": {
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "comparison": {
+            "type": "object",
+            "description": "Vendor comparison result",
+            "properties": {
+              "comparisonId": {"type": "string"},
+              "bestVendor": {"type": "string"},
+              "bestVendorName": {"type": "string"},
+              "costSavings": {"type": "number"},
+              "vendors": {"type": "array"}
+            },
+            "required": ["comparisonId", "bestVendor", "costSavings"]
+          },
+          "policies": {
+            "type": "object",
+            "description": "Business policies and thresholds",
+            "properties": {
+              "autoApproveThreshold": {"type": "number", "description": "Amount < this value auto-approves"},
+              "financeThreshold": {"type": "number", "description": "Amount < this value escalates to Finance"},
+              "preferredVendors": {"type": "array", "description": "List of preferred vendor IDs"},
+              "complianceRules": {"type": "object"}
+            }
+          }
+        },
+        "required": ["comparison", "policies"]
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "routingId": {"type": "string"},
+          "approvalLevel": {"type": "string", "enum": ["AUTO_APPROVE", "MANAGER", "FINANCE", "EXECUTIVE"]},
+          "approvers": {"type": "array"},
+          "estimatedApprovalTime": {"type": "integer", "description": "Minutes"},
+          "reason": {"type": "string"},
+          "policyViolations": {"type": "array"},
+          "isPreferredVendor": {"type": "boolean"}
+        }
+      }
+    }
+  }
+}

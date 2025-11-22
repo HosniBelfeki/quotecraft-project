@@ -1,0 +1,206 @@
+openapi: 3.0.0
+info:
+  title: QuoteCraft Procurement API
+  description: API for automated BOQ and vendor quote processing
+  version: 1.0.0
+servers:
+  - url: http://localhost:3001
+    description: Local development server
+
+paths:
+  /api/upload:
+    post:
+      summary: Upload Document
+      description: Upload and parse BOQ or vendor quote documents
+      operationId: uploadDocument
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+                - fileType
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The document file to upload
+                fileType:
+                  type: string
+                  enum: [boq, quote]
+                  description: Type of document
+                vendorName:
+                  type: string
+                  description: Vendor name (required for quotes)
+                vendorId:
+                  type: string
+                  description: Vendor ID
+      responses:
+        '200':
+          description: File uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      fileId:
+                        type: string
+                      fileName:
+                        type: string
+                      parsedData:
+                        type: object
+
+  /api/comparison:
+    post:
+      summary: Compare Vendors
+      description: Compare vendor quotes and calculate scores
+      operationId: compareVendors
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - boqData
+                - quotes
+              properties:
+                boqData:
+                  type: object
+                  description: Bill of Quantities data
+                quotes:
+                  type: array
+                  description: Array of vendor quotes
+                  items:
+                    type: object
+      responses:
+        '200':
+          description: Comparison completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      bestVendor:
+                        type: string
+                      costSavings:
+                        type: number
+
+  /api/approval:
+    post:
+      summary: Route for Approval
+      description: Submit approval decision
+      operationId: routeApproval
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - comparisonId
+                - decision
+                - approverRole
+                - approverEmail
+              properties:
+                comparisonId:
+                  type: string
+                decision:
+                  type: string
+                  enum: [APPROVED, REJECTED]
+                approverRole:
+                  type: string
+                approverEmail:
+                  type: string
+                comment:
+                  type: string
+      responses:
+        '200':
+          description: Approval processed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+
+  /api/erp/create-po:
+    post:
+      summary: Create Purchase Order
+      description: Create PO in ERP system
+      operationId: createPurchaseOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - selectedVendor
+                - comparisonId
+              properties:
+                selectedVendor:
+                  type: string
+                comparisonId:
+                  type: string
+                poData:
+                  type: object
+      responses:
+        '200':
+          description: PO created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      poNumber:
+                        type: string
+                      status:
+                        type: string
+
+  /api/kpi:
+    get:
+      summary: Get KPIs
+      description: Retrieve key performance indicators
+      operationId: getKPIs
+      responses:
+        '200':
+          description: KPIs retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      totalProcessed:
+                        type: number
+                      avgProcessingTime:
+                        type: string
+                      stpRate:
+                        type: number

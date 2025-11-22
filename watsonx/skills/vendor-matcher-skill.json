@@ -1,0 +1,59 @@
+{
+  "skill": {
+    "id": "vendor-matcher-skill",
+    "name": "Vendor Matcher",
+    "version": "1.0.0",
+    "description": "Matches BOQ items with vendor quotes and calculates scores",
+    "type": "custom_logic",
+    "endpoint": {
+      "url": "http://localhost:3001/api/comparison",
+      "method": "POST",
+      "contentType": "application/json"
+    },
+    "input": {
+      "parameters": [
+        {
+          "name": "boqData",
+          "type": "object",
+          "required": true,
+          "description": "Bill of Quantities data"
+        },
+        {
+          "name": "quotes",
+          "type": "array",
+          "required": true,
+          "description": "Array of vendor quotes"
+        }
+      ]
+    },
+    "output": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "bestVendor": { "type": "string" },
+          "costSavings": { "type": "number" },
+          "quotes": { "type": "array" }
+        }
+      }
+    },
+    "algorithm": {
+      "matching": "sku_based_exact_with_fuzzy_fallback",
+      "scoring": {
+        "weights": {
+          "price": 0.4,
+          "leadTime": 0.3,
+          "compliance": 0.3
+        },
+        "outlierThreshold": 30
+      }
+    },
+    "capabilities": [
+      "normalize_skus",
+      "calculate_variance",
+      "score_vendors",
+      "flag_outliers",
+      "generate_recommendation"
+    ]
+  }
+}

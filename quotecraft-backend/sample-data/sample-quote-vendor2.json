@@ -1,0 +1,55 @@
+{
+  "id": "QUOTE-VENDOR-B-001",
+  "vendorId": "VENDOR-002",
+  "vendorName": "Global Machinery Ltd.",
+  "vendorEmail": "quotations@globalmachinery.com",
+  "quoteDate": "2025-11-19",
+  "validUntil": "2025-12-19",
+  "items": [
+    {
+      "boqLineNo": 1,
+      "sku": "WIDGET-100",
+      "description": "Industrial Grade Widget - Premium",
+      "quantity": 500,
+      "unitPrice": 88.0,
+      "lineTotal": 44000
+    },
+    {
+      "boqLineNo": 2,
+      "sku": "SCREW-M8",
+      "description": "Stainless Steel Screws M8 (Box of 100)",
+      "quantity": 50,
+      "unitPrice": 16.0,
+      "lineTotal": 800
+    },
+    {
+      "boqLineNo": 3,
+      "sku": "BEARING-6205",
+      "description": "Deep Groove Ball Bearing 6205ZZ",
+      "quantity": 200,
+      "unitPrice": 13.2,
+      "lineTotal": 2640
+    },
+    {
+      "boqLineNo": 4,
+      "sku": "CABLE-ASSY-50",
+      "description": "Power Cable Assembly 50m",
+      "quantity": 10,
+      "unitPrice": 465.0,
+      "lineTotal": 4650
+    },
+    {
+      "boqLineNo": 5,
+      "sku": "CONTROL-UNIT-X2",
+      "description": "Industrial Control Unit X2",
+      "quantity": 5,
+      "unitPrice": 2900.0,
+      "lineTotal": 14500
+    }
+  ],
+  "totalCost": 66590,
+  "leadTimeDays": 18,
+  "paymentTerms": "Net 45",
+  "discountPercentage": 0,
+  "warranty": "24 months"
+}

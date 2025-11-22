@@ -1,0 +1,58 @@
+spec_version: v1
+name: compare_vendors
+display_name: Compare Vendors
+description: Compare vendor quotes against BOQ and calculate scores. Returns best vendor recommendation with cost savings analysis.
+type: openapi
+openapi_spec: |
+  openapi: 3.0.0
+  info:
+    title: Compare Vendors API
+    version: 1.0.0
+  servers:
+    - url: http://localhost:3001
+  paths:
+    /api/comparison:
+      post:
+        summary: Compare vendor quotes
+        operationId: compareVendors
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - boqData
+                  - quotes
+                properties:
+                  boqData:
+                    type: object
+                    description: Bill of Quantities data
+                  quotes:
+                    type: array
+                    description: Array of vendor quotes
+                    items:
+                      type: object
+        responses:
+          '200':
+            description: Comparison completed successfully
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    data:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        bestVendor:
+                          type: string
+                        costSavings:
+                          type: number
+                        quotes:
+                          type: array
+                          items:
+                            type: object

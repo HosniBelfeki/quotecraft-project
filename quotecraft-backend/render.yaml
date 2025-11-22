@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: quotecraft-backend
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        fromService:
+          type: web
+          name: quotecraft-backend
+          property: port
+      - key: FRONTEND_URL
+        sync: false
+      - key: IBM_ORCHESTRATE_URL
+        sync: false
+      - key: IBM_ORCHESTRATE_API_KEY
+        sync: false
+      - key: IBM_ORCHESTRATE_AGENT_ID
+        sync: false
+      - key: IBM_COS_ENDPOINT
+        sync: false
+      - key: IBM_COS_API_KEY
+        sync: false
+      - key: IBM_COS_BUCKET
+        sync: false
+      - key: MOCK_ERP_ENABLED
+        value: true
+      - key: LOG_LEVEL
+        value: info
+    healthCheckPath: /health

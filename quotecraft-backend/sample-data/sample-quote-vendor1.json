@@ -1,0 +1,55 @@
+{
+  "id": "QUOTE-VENDOR-A-001",
+  "vendorId": "VENDOR-001",
+  "vendorName": "IndustrialSupply Co.",
+  "vendorEmail": "sales@industrialsupply.com",
+  "quoteDate": "2025-11-20",
+  "validUntil": "2025-12-20",
+  "items": [
+    {
+      "boqLineNo": 1,
+      "sku": "WIDGET-100",
+      "description": "Industrial Grade Widget - Premium",
+      "quantity": 500,
+      "unitPrice": 82.5,
+      "lineTotal": 41250
+    },
+    {
+      "boqLineNo": 2,
+      "sku": "SCREW-M8",
+      "description": "Stainless Steel Screws M8 (Box of 100)",
+      "quantity": 50,
+      "unitPrice": 14.25,
+      "lineTotal": 712.5
+    },
+    {
+      "boqLineNo": 3,
+      "sku": "BEARING-6205",
+      "description": "Deep Groove Ball Bearing 6205ZZ",
+      "quantity": 200,
+      "unitPrice": 11.8,
+      "lineTotal": 2360
+    },
+    {
+      "boqLineNo": 4,
+      "sku": "CABLE-ASSY-50",
+      "description": "Power Cable Assembly 50m",
+      "quantity": 10,
+      "unitPrice": 425.0,
+      "lineTotal": 4250
+    },
+    {
+      "boqLineNo": 5,
+      "sku": "CONTROL-UNIT-X2",
+      "description": "Industrial Control Unit X2",
+      "quantity": 5,
+      "unitPrice": 2700.0,
+      "lineTotal": 13500
+    }
+  ],
+  "totalCost": 62072.5,
+  "leadTimeDays": 21,
+  "paymentTerms": "Net 30",
+  "discountPercentage": 3,
+  "warranty": "12 months"
+}

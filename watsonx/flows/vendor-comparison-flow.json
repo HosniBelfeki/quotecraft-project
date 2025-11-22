@@ -1,0 +1,56 @@
+{
+  "spec": {
+    "spec_version": "v1",
+    "name": "vendor_comparison_flow",
+    "title": "Vendor Comparison Flow",
+    "description": "Intelligently matches vendor quotes to BOQ items using fuzzy matching. Calculates vendor scores based on price (40%), lead time (30%), and compliance (30%). Flags anomalies and generates comparison matrix with recommendations.",
+    "version": "1.0.0",
+    "function": {
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "boqData": {
+            "type": "object",
+            "description": "Extracted BOQ data",
+            "properties": {
+              "items": {"type": "array", "description": "BOQ line items"},
+              "totalBOQ": {"type": "number", "description": "Total BOQ amount"},
+              "fileId": {"type": "string", "description": "Reference to BOQ file"}
+            },
+            "required": ["items", "totalBOQ"]
+          },
+          "vendorQuotes": {
+            "type": "array",
+            "description": "Array of vendor quote data",
+            "items": {
+              "type": "object",
+              "properties": {
+                "vendorId": {"type": "string"},
+                "vendorName": {"type": "string"},
+                "items": {"type": "array"},
+                "totalCost": {"type": "number"},
+                "leadTime": {"type": "integer"},
+                "complianceScore": {"type": "number"}
+              }
+            }
+          }
+        },
+        "required": ["boqData", "vendorQuotes"]
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "comparisonId": {"type": "string"},
+          "vendors": {"type": "array"},
+          "bestVendor": {"type": "string"},
+          "bestVendorName": {"type": "string"},
+          "costSavings": {"type": "number"},
+          "savingsPercentage": {"type": "number"},
+          "processingTime": {"type": "number"},
+          "anomalies": {"type": "array"},
+          "matchingConfidence": {"type": "number"}
+        }
+      }
+    }
+  }
+}

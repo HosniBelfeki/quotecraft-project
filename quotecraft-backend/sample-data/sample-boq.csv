@@ -1,0 +1,6 @@
+LineNo,SKU,Description,Quantity,Unit Price,Estimated Total,Specifications
+1,WIDGET-100,Industrial Grade Widget - Premium,500,$85.00,$42500.00,High-grade steel 12-month warranty
+2,SCREW-M8,Stainless Steel Screws M8 (Box of 100),50,$15.00,$750.00,Grade 8.8 galvanized finish
+3,BEARING-6205,Deep Groove Ball Bearing 6205ZZ,200,$12.50,$2500.00,Double-sided sealed 25mm bore
+4,CABLE-ASSY-50,Power Cable Assembly 50m,10,$450.00,$4500.00,3-phase 16mm² rated 63A
+5,CONTROL-UNIT-X2,Industrial Control Unit X2,5,$2800.00,$14000.00,PLC-based 24 I/O ports

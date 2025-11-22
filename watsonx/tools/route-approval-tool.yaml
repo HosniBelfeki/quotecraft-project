@@ -1,0 +1,64 @@
+spec_version: v1
+name: route_approval
+display_name: Route for Approval
+description: Route comparison for approval based on business policies. Determines approval level based on cost thresholds.
+type: openapi
+openapi_spec: |
+  openapi: 3.0.0
+  info:
+    title: Route Approval API
+    version: 1.0.0
+  servers:
+    - url: http://localhost:3001
+  paths:
+    /api/approval:
+      post:
+        summary: Submit approval decision
+        operationId: routeApproval
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - comparisonId
+                  - decision
+                  - approverRole
+                  - approverEmail
+                properties:
+                  comparisonId:
+                    type: string
+                    description: ID of the comparison
+                  decision:
+                    type: string
+                    enum: [APPROVED, REJECTED]
+                    description: Approval decision
+                  approverRole:
+                    type: string
+                    description: Role of the approver
+                  approverEmail:
+                    type: string
+                    description: Email of the approver
+                  comment:
+                    type: string
+                    description: Optional approval comment
+        responses:
+          '200':
+            description: Approval processed successfully
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    data:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        nextStep:
+                          type: string
+                        poDetails:
+                          type: object

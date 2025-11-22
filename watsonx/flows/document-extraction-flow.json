@@ -1,0 +1,43 @@
+{
+  "spec": {
+    "spec_version": "v1",
+    "name": "document_extraction_flow",
+    "title": "Document Extraction Flow",
+    "description": "Validates and extracts structured data from BOQ and vendor quote documents in multiple formats (PDF, Excel, CSV, JSON). Stores extracted data in cloud storage for downstream processing.",
+    "version": "1.0.0",
+    "function": {
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "object",
+            "description": "Uploaded file with metadata",
+            "properties": {
+              "name": {"type": "string", "description": "File name"},
+              "type": {"type": "string", "enum": ["boq", "quote"], "description": "File type"},
+              "mimeType": {"type": "string", "description": "MIME type"},
+              "size": {"type": "integer", "description": "File size in bytes"},
+              "content": {"type": "string", "description": "File content or base64"}
+            },
+            "required": ["name", "type", "mimeType"]
+          }
+        },
+        "required": ["file"]
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "success": {"type": "boolean"},
+          "fileId": {"type": "string"},
+          "fileName": {"type": "string"},
+          "extractedItems": {"type": "array"},
+          "totalCount": {"type": "integer"},
+          "extractionTime": {"type": "number"},
+          "confidence": {"type": "number"},
+          "s3Reference": {"type": "string"},
+          "errors": {"type": "array"}
+        }
+      }
+    }
+  }
+}

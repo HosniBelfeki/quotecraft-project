@@ -1,0 +1,54 @@
+{
+  "skill": {
+    "id": "document-parser-skill",
+    "name": "Document Parser",
+    "version": "1.0.0",
+    "description": "Extracts structured data from BOQ and vendor quote documents",
+    "type": "custom_api",
+    "endpoint": {
+      "url": "http://localhost:3001/api/upload",
+      "method": "POST",
+      "contentType": "multipart/form-data"
+    },
+    "input": {
+      "parameters": [
+        {
+          "name": "file",
+          "type": "file",
+          "required": true,
+          "description": "Document file to parse (JSON, PDF, Excel)"
+        },
+        {
+          "name": "fileType",
+          "type": "string",
+          "required": true,
+          "enum": ["boq", "quote"],
+          "description": "Type of document"
+        },
+        {
+          "name": "vendorName",
+          "type": "string",
+          "required": false,
+          "description": "Vendor name (required for quotes)"
+        }
+      ]
+    },
+    "output": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "fileId": { "type": "string" },
+          "fileName": { "type": "string" },
+          "parsedData": { "type": "object" }
+        }
+      }
+    },
+    "capabilities": [
+      "parse_json",
+      "parse_pdf",
+      "parse_excel",
+      "validate_schema",
+      "extract_line_items"
+    ]
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "skill": {
+    "id": "notification-skill",
+    "name": "Notification Service",
+    "version": "1.0.0",
+    "description": "Sends notifications to approvers via Slack, Email, or Microsoft Teams",
+    "type": "integration",
+    "channels": [
+      {
+        "name": "slack",
+        "enabled": true,
+        "config": {
+          "webhookUrl": "${SLACK_WEBHOOK_URL}",
+          "defaultChannel": "#procurement-approvals"
+        }
+      },
+      {
+        "name": "email",
+        "enabled": true,
+        "config": {
+          "smtpHost": "${SMTP_HOST}",
+          "smtpPort": 587,
+          "from": "noreply@quotecraft.com"
+        }
+      },
+      {
+        "name": "teams",
+        "enabled": false,
+        "config": {
+          "webhookUrl": "${TEAMS_WEBHOOK_URL}"
+        }
+      }
+    ],
+    "templates": [
+      {
+        "id": "approval_request",
+        "subject": "Approval Required: Vendor Comparison ${comparisonId}",
+        "body": "A new vendor comparison requires your approval. Total Cost: ${totalCost}. Best Vendor: ${bestVendor}. Click here to review: ${approvalLink}"
+      },
+      {
+        "id": "po_confirmation",
+        "subject": "PO Created: ${poNumber}",
+        "body": "Purchase Order ${poNumber} has been created for vendor ${vendorName}. Total: ${totalCost}."
+      },
+      {
+        "id": "escalation",
+        "subject": "Escalation: ${issue}",
+        "body": "An issue requires immediate attention: ${details}. Comparison ID: ${comparisonId}."
+      }
+    ],
+    "capabilities": [
+      "send_slack_message",
+      "send_email",
+      "send_teams_message",
+      "format_template",
+      "track_delivery"
+    ]
+  }
+}

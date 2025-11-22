@@ -1,0 +1,55 @@
+{
+  "id": "QUOTE-VENDOR-C-001",
+  "vendorId": "VENDOR-003",
+  "vendorName": "Premium Parts International",
+  "vendorEmail": "business@premiumparts.com",
+  "quoteDate": "2025-11-21",
+  "validUntil": "2025-12-05",
+  "items": [
+    {
+      "boqLineNo": 1,
+      "sku": "WIDGET-100",
+      "description": "Industrial Grade Widget - Premium",
+      "quantity": 500,
+      "unitPrice": 80.0,
+      "lineTotal": 40000
+    },
+    {
+      "boqLineNo": 2,
+      "sku": "SCREW-M8",
+      "description": "Stainless Steel Screws M8 (Box of 100)",
+      "quantity": 50,
+      "unitPrice": 13.5,
+      "lineTotal": 675
+    },
+    {
+      "boqLineNo": 3,
+      "sku": "BEARING-6205",
+      "description": "Deep Groove Ball Bearing 6205ZZ",
+      "quantity": 200,
+      "unitPrice": 12.0,
+      "lineTotal": 2400
+    },
+    {
+      "boqLineNo": 4,
+      "sku": "CABLE-ASSY-50",
+      "description": "Power Cable Assembly 50m",
+      "quantity": 10,
+      "unitPrice": 440.0,
+      "lineTotal": 4400
+    },
+    {
+      "boqLineNo": 5,
+      "sku": "CONTROL-UNIT-X2",
+      "description": "Industrial Control Unit X2",
+      "quantity": 5,
+      "unitPrice": 2650.0,
+      "lineTotal": 13250
+    }
+  ],
+  "totalCost": 60725,
+  "leadTimeDays": 14,
+  "paymentTerms": "Net 30",
+  "discountPercentage": 5,
+  "warranty": "18 months"
+}

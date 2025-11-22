@@ -1,0 +1,70 @@
+{
+  "skill": {
+    "id": "erp-connector-skill",
+    "name": "ERP Connector",
+    "version": "1.0.0",
+    "description": "Creates purchase orders in ERP systems (SAP, Oracle)",
+    "type": "integration",
+    "endpoint": {
+      "url": "http://localhost:3001/api/erp/create-po",
+      "method": "POST",
+      "contentType": "application/json"
+    },
+    "input": {
+      "parameters": [
+        {
+          "name": "selectedVendor",
+          "type": "string",
+          "required": true,
+          "description": "Selected vendor ID or name"
+        },
+        {
+          "name": "comparisonId",
+          "type": "string",
+          "required": true,
+          "description": "Comparison ID reference"
+        },
+        {
+          "name": "poData",
+          "type": "object",
+          "required": false,
+          "description": "Additional PO data"
+        }
+      ]
+    },
+    "output": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "poNumber": { "type": "string" },
+          "poId": { "type": "string" },
+          "status": { "type": "string" },
+          "createdAt": { "type": "string" }
+        }
+      }
+    },
+    "supportedERPs": [
+      {
+        "name": "SAP",
+        "version": "S/4HANA",
+        "apiType": "OpenAPI"
+      },
+      {
+        "name": "Oracle",
+        "version": "ERP Cloud",
+        "apiType": "REST"
+      }
+    ],
+    "mockMode": {
+      "enabled": true,
+      "poNumberPrefix": "TEST"
+    },
+    "capabilities": [
+      "create_po",
+      "update_po",
+      "attach_documents",
+      "send_confirmation",
+      "track_status"
+    ]
+  }
+}

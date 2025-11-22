@@ -1,0 +1,11 @@
+Comparison ID,comp-33fa4d9-88e3-4f75-a68f-b865768d1e7a
+BOQ Budget,$64,250.00
+Best Vendor,Premium Parts International
+Best Vendor Score,95/100
+Total Potential Savings,$3,525.00
+Status,PENDING_APPROVAL
+
+Vendor,Total Cost,Savings vs BOQ,Lead Time,Warranty,Score,Status,Approval Route
+Premium Parts International,$60,725.00,-$3,525.00,14 days,18 months,95/100,ACCEPTABLE,FINANCE_DIRECTOR
+IndustrialSupply Co.,$62,072.50,-$2,177.50,21 days,12 months,90/100,FLAG_REVIEW,PROCUREMENT_MANAGER
+Global Machinery Ltd.,$66,590.00,+$2,340.00,18 days,24 months,75/100,FLAG_REVIEW,PROCUREMENT_MANAGER

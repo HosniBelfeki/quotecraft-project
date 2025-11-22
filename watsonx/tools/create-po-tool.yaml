@@ -1,0 +1,57 @@
+spec_version: v1
+name: create_purchase_order
+display_name: Create Purchase Order
+description: Create a purchase order in the ERP system. Generates PO number and sends vendor notification.
+type: openapi
+openapi_spec: |
+  openapi: 3.0.0
+  info:
+    title: Create PO API
+    version: 1.0.0
+  servers:
+    - url: http://localhost:3001
+  paths:
+    /api/erp/create-po:
+      post:
+        summary: Create purchase order
+        operationId: createPurchaseOrder
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - selectedVendor
+                  - comparisonId
+                properties:
+                  selectedVendor:
+                    type: string
+                    description: Selected vendor name or ID
+                  comparisonId:
+                    type: string
+                    description: Comparison ID reference
+                  poData:
+                    type: object
+                    description: Additional PO data
+        responses:
+          '200':
+            description: PO created successfully
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    data:
+                      type: object
+                      properties:
+                        poNumber:
+                          type: string
+                        poId:
+                          type: string
+                        status:
+                          type: string
+                        createdAt:
+                          type: string

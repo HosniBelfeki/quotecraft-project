@@ -1,0 +1,57 @@
+{
+  "id": "BOQ-2025-001",
+  "projectName": "Manufacturing Plant Expansion",
+  "dateCreated": "2025-11-21",
+  "totalBudget": 125000,
+  "items": [
+    {
+      "lineNo": 1,
+      "sku": "WIDGET-100",
+      "description": "Industrial Grade Widget - Premium",
+      "quantity": 500,
+      "unitPrice": 85.0,
+      "estimatedTotal": 42500,
+      "specifications": "High-grade steel, 12-month warranty"
+    },
+    {
+      "lineNo": 2,
+      "sku": "SCREW-M8",
+      "description": "Stainless Steel Screws M8 (Box of 100)",
+      "quantity": 50,
+      "unitPrice": 15.0,
+      "estimatedTotal": 750,
+      "specifications": "Grade 8.8, galvanized finish"
+    },
+    {
+      "lineNo": 3,
+      "sku": "BEARING-6205",
+      "description": "Deep Groove Ball Bearing 6205ZZ",
+      "quantity": 200,
+      "unitPrice": 12.5,
+      "estimatedTotal": 2500,
+      "specifications": "Double-sided sealed, 25mm bore"
+    },
+    {
+      "lineNo": 4,
+      "sku": "CABLE-ASSY-50",
+      "description": "Power Cable Assembly 50m",
+      "quantity": 10,
+      "unitPrice": 450.0,
+      "estimatedTotal": 4500,
+      "specifications": "3-phase, 16mm\u00b2, rated 63A"
+    },
+    {
+      "lineNo": 5,
+      "sku": "CONTROL-UNIT-X2",
+      "description": "Industrial Control Unit X2",
+      "quantity": 5,
+      "unitPrice": 2800.0,
+      "estimatedTotal": 14000,
+      "specifications": "PLC-based, 24 I/O ports"
+    }
+  ],
+  "requiredDate": "2025-12-31",
+  "totalEstimated": 64250,
+  "approvalStatus": "PENDING",
+  "createdBy": "Hosni Belfeki"
+}
