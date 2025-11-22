@@ -13,7 +13,7 @@ interface DashboardKPIProps {
 }
 
 export default function DashboardKPI({ boqItems, matches, selections }: DashboardKPIProps) {
-  const [backendKPI, setBackendKPI] = useState<any>(null);
+  const [backendKPI, setBackendKPI] = useState<unknown>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   // Total vendors derived from matches
@@ -31,8 +31,23 @@ export default function DashboardKPI({ boqItems, matches, selections }: Dashboar
     return acc + item.quantity * sel.finalRate;
   }, 0);
 
-  const baseTotal = boqItems.reduce((acc, item) => acc + (item.baseRate ? item.baseRate * item.quantity : 0), 0);
+  // Calculate base total only for selected items
+  const baseTotal = selections.reduce((acc, sel) => {
+    const item = boqItems.find((b) => b.id === sel.boqItemId);
+    if (!item || !item.baseRate) return acc;
+    return acc + item.quantity * item.baseRate;
+  }, 0);
+  
   const savings = baseTotal > 0 ? baseTotal - projectTotal : 0;
+
+  // Update backend KPI with savings whenever it changes
+  useEffect(() => {
+    if (savings > 0) {
+      api.updateCostSavings(savings).catch((err) => {
+        console.error('Failed to update cost savings:', err);
+      });
+    }
+  }, [savings]);
 
   const fetchBackendKPI = async () => {
     setIsLoading(true);
@@ -41,7 +56,7 @@ export default function DashboardKPI({ boqItems, matches, selections }: Dashboar
       if (response.success && response.data) {
         setBackendKPI(response.data);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to fetch KPI:', error);
       toast.error('Failed to load backend KPIs');
     } finally {
@@ -51,6 +66,17 @@ export default function DashboardKPI({ boqItems, matches, selections }: Dashboar
 
   useEffect(() => {
     fetchBackendKPI();
+
+    // Listen for KPI update events
+    const handleKPIUpdate = () => {
+      fetchBackendKPI();
+    };
+
+    window.addEventListener('kpi-update', handleKPIUpdate);
+
+    return () => {
+      window.removeEventListener('kpi-update', handleKPIUpdate);
+    };
   }, []);
 
   const localKPI = [
