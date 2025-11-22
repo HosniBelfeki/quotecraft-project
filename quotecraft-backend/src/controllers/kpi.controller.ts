@@ -4,16 +4,47 @@ import { KPIMetrics } from '../models/types';
 
 // In-memory storage for tracking metrics
 const metricsStore = {
-  totalProcessed: 0,
+  totalProcessed: 0, // Total comparisons processed
   totalProcessingTime: 0,
   autoApprovedCount: 0,
   escalatedCount: 0,
   totalCostSavings: 0,
   errorCount: 0,
+  documentsUploaded: 0, // Track document uploads separately
   startTime: Date.now()
 };
 
 class KPIController {
+  async updateCostSavings(req: Request, res: Response): Promise<void> {
+    try {
+      const { savings } = req.body;
+      
+      if (typeof savings !== 'number') {
+        res.status(400).json({
+          success: false,
+          error: { message: 'Invalid savings value' }
+        });
+        return;
+      }
+
+      // Update the total cost savings
+      metricsStore.totalCostSavings = savings;
+
+      logger.info(`Cost savings updated: ₹${savings}`);
+
+      res.json({
+        success: true,
+        message: 'Cost savings updated successfully'
+      });
+    } catch (error: any) {
+      logger.error(`Update cost savings error: ${error.message}`);
+      res.status(500).json({
+        success: false,
+        error: { message: error.message }
+      });
+    }
+  }
+
   async getKPIs(req: Request, res: Response): Promise<void> {
     try {
       // Calculate real-time metrics
@@ -67,7 +98,9 @@ class KPIController {
     escalated?: boolean;
     costSavings?: number;
     error?: boolean;
+    isComparison?: boolean; // Flag to indicate if this is a comparison (not just upload)
   }) {
+    // Increment totalProcessed for all operations (uploads + comparisons)
     metricsStore.totalProcessed++;
     
     if (data.processingTime) {
@@ -90,6 +123,8 @@ class KPIController {
       metricsStore.errorCount++;
     }
   }
+
+
 }
 
 export default new KPIController();
