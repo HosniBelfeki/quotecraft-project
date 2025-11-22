@@ -152,12 +152,13 @@ export const api = {
 
   // KPI endpoints
   getKPI: () => request<KPIResponse>(`/api/kpi`, { method: 'GET' }),
+  updateCostSavings: (savings: number) => request<{ success: boolean; message: string }>(`/api/kpi/savings`, { method: 'POST', body: JSON.stringify({ savings }) }),
 
   // ERP endpoints (NEW)
   createPO: (params?: {
     comparisonId?: string;
     vendorId?: string;
-    items?: any[];
+    items?: unknown[];
     totalAmount?: number;
   }) => request<POResponse>(`/api/erp/create-po`, { 
     method: 'POST', 
