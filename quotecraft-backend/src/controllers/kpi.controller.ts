@@ -19,27 +19,27 @@ class KPIController {
       // Calculate real-time metrics
       const avgProcessingTime = metricsStore.totalProcessed > 0 
         ? metricsStore.totalProcessingTime / metricsStore.totalProcessed 
-        : 2.5; // Default 2.5 seconds
+        : 0;
       
       const stpRate = metricsStore.totalProcessed > 0
         ? (metricsStore.autoApprovedCount / metricsStore.totalProcessed) * 100
-        : 78.5;
+        : 0;
       
       const errorRate = metricsStore.totalProcessed > 0
         ? (metricsStore.errorCount / metricsStore.totalProcessed) * 100
-        : 2.1;
+        : 0;
       
       const avgCostVariance = metricsStore.totalProcessed > 0
         ? (metricsStore.totalCostSavings / metricsStore.totalProcessed) / 1000 * 100
-        : -4.2;
+        : 0;
 
       const kpis: KPIMetrics = {
-        totalProcessed: metricsStore.totalProcessed || 42,
-        avgProcessingTime: avgProcessingTime.toFixed(1) + ' seconds',
+        totalProcessed: metricsStore.totalProcessed,
+        avgProcessingTime: avgProcessingTime > 0 ? avgProcessingTime.toFixed(1) + ' seconds' : '0 seconds',
         stpRate: parseFloat(stpRate.toFixed(1)),
-        autoApprovedCount: metricsStore.autoApprovedCount || 33,
-        escalatedCount: metricsStore.escalatedCount || 9,
-        totalCostSavings: metricsStore.totalCostSavings || 125000.0,
+        autoApprovedCount: metricsStore.autoApprovedCount,
+        escalatedCount: metricsStore.escalatedCount,
+        totalCostSavings: metricsStore.totalCostSavings,
         avgCostVariance: parseFloat(avgCostVariance.toFixed(2)),
         errorRate: parseFloat(errorRate.toFixed(2))
       };
