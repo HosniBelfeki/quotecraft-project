@@ -32,14 +32,15 @@
     "pdf-parse": "^2.2.2",
     "uuid": "^9.0.1",
     "winston": "^3.18.3",
-    "xlsx": "^0.18.5"
-  },
-  "devDependencies": {
+    "xlsx": "^0.18.5",
+
     "@types/cors": "^2.8.19",
     "@types/express": "^4.17.25",
     "@types/multer": "^1.4.13",
     "@types/node": "^20.19.25",
-    "@types/uuid": "^9.0.8",
+    "@types/uuid": "^9.0.8"
+  },
+  "devDependencies": {
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
